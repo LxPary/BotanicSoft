@@ -2,7 +2,7 @@
 <widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>UNSCH-BotanicSoft</name>
     <description>Botanic Soft es un aplicacion movil para registrar hojas de planta exoticas, uso exclusivo para botanicos.</description>
-    <author email="lx7pary@gmail.com" href="#">Alex Pariona</author>
+    <author email="lx7pary@gmail.com" href="https://plus.google.com/+AlexPalominoPariona">Alex Pariona</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
