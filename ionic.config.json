@@ -1,0 +1,14 @@
+{
+  "name": "BotanicSoft",
+  "app_id": "3c6ba271",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  },
+  "proxies": [
+    {
+      "path": "/plantAPI",
+      "proxyUrl": "http://api.deezer.com/"
+    }
+  ]
+}
