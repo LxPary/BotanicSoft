@@ -14,3 +14,4 @@ import { AddPlantaPage } from './add-planta';
   ]
 })
 export class AddPlantaPageModule {}
+
