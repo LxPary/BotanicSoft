@@ -1,8 +1,19 @@
 <ion-header>
   <ion-navbar color="secondary">
     <button ion-button menuToggle icon-only><ion-icon name='menu'></ion-icon></button>
-    <ion-title>Inicio</ion-title>
+    <ion-title>Plantas UNSCH</ion-title>
+    <ion-buttons end>
+        <button ion-button icon-only >
+          <ion-icon name="locate"></ion-icon>
+        </button>
+        <button ion-button icon-only>
+          <ion-icon name="person-add"></ion-icon>
+        </button>
+      </ion-buttons>
   </ion-navbar>
+  <ion-navbar>
+      <ion-searchbar (ionInput)="search($event)"></ion-searchbar>
+    </ion-navbar>
 </ion-header>
 
 <ion-content padding>
@@ -13,30 +24,34 @@
       <button ion-fab color="secondary" (click)="goToAdd()"><ion-icon name="md-camera"></ion-icon></button>
     </ion-fab-list>
   </ion-fab>
-  <ion-content  class="cards-bg">  
-      <ion-list ion-row>
-          <ion-card class="adv-map" on-tap="openGallery(user)" *ngFor="let user of users">
-              <div style="position: relative">
-                <img *ngIf="user"  src="{{ user.picture_big }}">      
-              </div>
-              <ion-item>
-                <ion-icon color="subtle" large item-start name='cloud'></ion-icon>
-                <h2 style="color:#ccc;">Taxonomia</h2>
-                <p>{{ user.name }}</p>
-              </ion-item>
-              <ion-item>
-                <ion-icon color="subtle" large item-start name='leaf'></ion-icon>
-                <h2 style="color:#ccc;">Descripcion</h2>               
-                <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
-              </ion-item>      
-              <ion-item actions>
-                <!-- <span ion-text item-start class="item-bold">{{ user.id }}</span>                -->
-                <button ion-button color="secondary" clear item-end icon-start>
-                  <ion-icon name='leaf'></ion-icon>
-                  Detalles
-                </button>
-              </ion-item>            
-            </ion-card>     
-      </ion-list>  
-  </ion-content>
+  <ion-card on-tap="openDetails(plant.Id)" *ngFor="let plant of plantas">
+    <ion-item>
+      <ion-avatar item-start>
+        <img *ngIf="plant" src="{{ plant.User.Imagen }}">
+      </ion-avatar>
+      <h2 class="pdata">{{plant.User.Alias}}</h2>
+      <p>{{plant.Fecha}}</p>
+    </ion-item>
+    <img *ngIf="plant" src="{{ plant.Imagen }}">
+    <ion-card-content>
+      <ion-card-title  class="pdata">
+        {{plant.Nombre}}
+      </ion-card-title>
+      <ion-note >
+        {{plant.Descripcion}}
+      </ion-note>
+    </ion-card-content>
+
+    <ion-row>
+      <ion-col>
+        <button ion-button color="primary" clear small icon-start>
+            <ion-icon name='pin'></ion-icon>
+            {{plant.Ubicacion}}
+          </button>
+      </ion-col>    
+      <ion-col></ion-col>  
+      <ion-col align-self-center text-center>        
+      </ion-col>
+    </ion-row>
+  </ion-card>
 </ion-content>

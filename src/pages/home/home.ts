@@ -1,42 +1,61 @@
+import { PlantUsuarioPage } from './../plant-usuario/plant-usuario';
+import { PlantDetailsPage } from './../plant-details/plant-details';
 import { PlantServiceProvider } from './../../providers/plant-service/plant-service';
 import { Diagnostic } from '@ionic-native/diagnostic';
-import { GalleryPage } from './../gallery/gallery';
 import { AddGalleryPage } from './../add-gallery/add-gallery';
 import { AddPlantaPage } from './../add-planta/add-planta';
 import { Component } from '@angular/core';
 import { NavController, AlertController, LoadingController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { Observable } from "rxjs/Observable";
 import 'rxjs/add/observable/merge'
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers:[PlantServiceProvider]
+  providers: [PlantServiceProvider]
 })
 export class HomePage {
-  public users: any;
+  public plantas: any;
   public loader: any;
   constructor(public navCtrl: NavController
     , private alertCtrl: AlertController
     , private diagnostic: Diagnostic
     , public camera: Camera
-    , public ps:PlantServiceProvider
+    , public ps: PlantServiceProvider
     , public loadingCtrl: LoadingController
   ) {
-    this.users = [];
+    this.plantas = [];
     this.loader = this.loadingCtrl.create();
   }
-  ionViewDidLoad(){
+  ionViewDidLoad() {
     this.loader.present();
-    this.ps.getUsers().subscribe(usersIDs => {
-      let sources = usersIDs.map(userID => this.ps.getUserDetail(userID));
-      Observable.merge(...sources).subscribe(
-        data => this.users.push(data),
-        error => console.log(error),
-        () => this.loader.dismiss()
+    this.ps.getPlants().subscribe(
+      data => { this.plantas = data; },
+      error => console.log(error),
+      () => this.loader.dismiss()
+    );
+  }
+  openDetails(pId) {
+    this.navCtrl.push(PlantDetailsPage, { Id: pId })
+  }
+
+  createUser(){
+    this.navCtrl.push(PlantUsuarioPage)
+  }
+
+  search(ev){   
+    let val= ev.target.value;   
+    if (val && val.trim() != '') {
+      this.ps.searchPlants(val).subscribe(
+        data => { this.plantas = data;         },
+        error => console.log(error)        
       );
-    });
+    }else{
+      this.ps.getPlants().subscribe(
+        data => { this.plantas = data; },
+        error => console.log(error)        
+      );
+    }
   }
 
   goToAdd() {
@@ -57,9 +76,6 @@ export class HomePage {
       }).present();
     });
   }
-  openGallery(Id) {
-    this.navCtrl.push(GalleryPage, { pId: Id })
-  } 
 
   checkPermissions() {
     this.diagnostic.isCameraAvailable().then((authorized) => {

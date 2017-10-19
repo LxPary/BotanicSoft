@@ -10,24 +10,28 @@ import 'rxjs/add/operator/map';
 */
 @Injectable()
 export class PlantServiceProvider {
-  public plantAPI: string;  
+  public plantAPI: string;
   constructor(public http: Http) {
-    this.plantAPI="/plantAPI/";
+    this.plantAPI = "/plantAPI/";
   }
-  getUsers() {    
-    return this.http.get('https://api.myjson.com/bins/w076v')
+  getPlants() {
+    return this.http.get(this.plantAPI + "all")
       .map(res => res.json())
   }
-  getUserDetail(userID) {
-    return this.http.get(this.plantAPI + "user/" + userID)
+  searchPlants(item) {
+    return this.http.get(this.plantAPI + "search/" + item)
       .map(res => res.json())
   }
-  getUserPlaylists(userID) {
-    return this.http.get(this.plantAPI + "user/" + userID + "/playlists")
+  getPlant(Id) {
+    return this.http.get(this.plantAPI + Id)
       .map(res => res.json())
   }
-  getPlaylistSongs(playlistID) {
-    return this.http.get(this.plantAPI + "playlist/" + playlistID + "/tracks")
+  createPlant(model: any) {
+    return this.http.put(this.plantAPI, model)
+      .map(res => res.json())
+  }
+  createUser(user: any) {
+    return this.http.put(this.plantAPI + "user", user)
       .map(res => res.json())
   }
 }

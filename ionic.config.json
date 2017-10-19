@@ -8,7 +8,7 @@
   "proxies": [
     {
       "path": "/plantAPI",
-      "proxyUrl": "http://api.deezer.com/"
+      "proxyUrl": "http://192.168.1.18:9090/PlantNetService.svc/plant/"
     }
   ]
 }

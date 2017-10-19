@@ -1,6 +1,10 @@
+import { AyudaPage } from './../pages/ayuda/ayuda';
+import { TutorialPage } from './../pages/tutorial/tutorial';
+import { RegistrosPage } from './../pages/registros/registros';
+import { AjustesPage } from './../pages/ajustes/ajustes';
+import { PerfilPage } from './../pages/perfil/perfil';
 import { AddPlantaPage } from './../pages/add-planta/add-planta';
 import { AddGalleryPage } from './../pages/add-gallery/add-gallery';
-import { ContactPage } from './../pages/contact/contact';
 import { AboutPage } from './../pages/about/about';
 import { AddGroupPage } from './../pages/add-group/add-group';
 import { HomePage } from './../pages/home/home';
@@ -16,16 +20,21 @@ export class MyApp {
   @ViewChild('content') nav: Nav;
   public rootPage: any;
   public pages: Array<{ titulo: string, component: any, icon: string }>;
+  public helpers: Array<{ titulo: string, component: any, icon: string }>;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     this.rootPage = HomePage;
     this.pages = [
       { titulo: 'Inicio', component: HomePage, icon: 'home' },
-      { titulo: 'Crear Grupo', component: AddGroupPage, icon: 'people' },
-      { titulo: 'Agregar de Galeria', component: AddGalleryPage, icon: 'image' },
-      { titulo: 'Tomar Foto', component: AddPlantaPage, icon: 'camera' },
-      { titulo: 'Contacto', component: ContactPage, icon: 'mail' },
-      { titulo: 'Acerca de', component: AboutPage, icon: 'information-circle' }
+      { titulo: 'Mi Perfil', component: PerfilPage, icon: 'contacts' },
+      { titulo: 'Ajustes', component: AjustesPage, icon: 'construct' },
+      { titulo: 'Mis Registros', component: RegistrosPage, icon: 'list-box' },
+      { titulo: 'Identificar', component: AddPlantaPage, icon: 'camera' }
+    ];
+    this.helpers = [
+      { titulo: 'Tutorial', component: TutorialPage, icon: 'videocam' },
+      { titulo: 'Ayuda', component: AyudaPage, icon: 'information' },
+      { titulo: 'Creditos', component: AboutPage, icon: 'git-network' }     
     ];
     platform.ready().then(() => {
       statusBar.styleDefault();
@@ -33,7 +42,6 @@ export class MyApp {
     });
   }
   goToPage(page) {
-    console.log(page);
     this.nav.setRoot(page);
-  }
+  }  
 }
